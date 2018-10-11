@@ -5,10 +5,14 @@ ASPARAMS = --32
 LDPARAMS = -melf_i386
 
 objects = obj/loader.o \
+	  obj/gdt.o \
 	  obj/kernel.o
 
 obj/%.o: kernel/%.cpp
 	mkdir -p $(@D)
+	gcc $(GCCPARAMS) -c -o $@ $<
+
+obj/%.o: src/%.cpp
 	gcc $(GCCPARAMS) -c -o $@ $<
 
 obj/%.o: kernel/%.s
