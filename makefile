@@ -6,6 +6,7 @@ LDPARAMS = -melf_i386
 
 objects = obj/loader.o \
 	  obj/gdt.o \
+	  obj/port.o \
 	  obj/kernel.o
 
 obj/%.o: kernel/%.cpp
@@ -13,6 +14,9 @@ obj/%.o: kernel/%.cpp
 	gcc $(GCCPARAMS) -c -o $@ $<
 
 obj/%.o: src/%.cpp
+	gcc $(GCCPARAMS) -c -o $@ $<
+	
+obj/%.o: src/hw/%.cpp
 	gcc $(GCCPARAMS) -c -o $@ $<
 
 obj/%.o: kernel/%.s
