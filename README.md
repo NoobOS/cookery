@@ -1,5 +1,10 @@
 # Noob OS
-To build Noob OS we need different sources from remote so read below instructions carefully.
+
+To build Noob OS we need different sources from different repo, so read below instructions carefully.
+
+**Clone this (cookery) repo and follow the following instructions carefully.**
+
+This will be the _work_ and _root_ directory for the OS
 
 ## Build
 
