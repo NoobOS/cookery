@@ -7,6 +7,8 @@ LDPARAMS = -melf_i386
 objects = obj/loader.o \
 	  obj/gdt.o \
 	  obj/port.o \
+	  obj/interruptstubs.o \
+	  obj/interrupts.o \
 	  obj/kernel.o
 
 obj/%.o: kernel/%.cpp
@@ -15,8 +17,11 @@ obj/%.o: kernel/%.cpp
 
 obj/%.o: src/%.cpp
 	gcc $(GCCPARAMS) -c -o $@ $<
-	
+
 obj/%.o: src/hw/%.cpp
+	gcc $(GCCPARAMS) -c -o $@ $<
+
+obj/%.o: src/hw/%.s
 	gcc $(GCCPARAMS) -c -o $@ $<
 
 obj/%.o: kernel/%.s
@@ -51,5 +56,11 @@ run: noobkernel.iso
 	(killall VirtualBox && sleep 1) || true #Life Hack
 	virtualbox --startvm "Noob OS" &
 
+#make clean
+.PHONY : clean
+clean:
+	rm -rf obj\
+	       out\
+	       *iso
 
 
