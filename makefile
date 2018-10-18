@@ -10,6 +10,8 @@ objects = obj/loader.o \
 	  obj/interruptstubs.o \
 	  obj/interrupts.o \
 	  obj/kernel.o
+setup:
+	ruby cook.rb
 
 obj/%.o: kernel/%.cpp
 	mkdir -p $(@D)
@@ -28,31 +30,31 @@ obj/%.o: kernel/%.s
 	mkdir -p $(@D)
 	as $(ASPARAMS) -o $@ $<
 
-out/noobkernel.bin: linker.ld $(objects)
+out/noob_kernel.bin: linker.ld $(objects)
 	mkdir -p $(@D)
 	ld $(LDPARAMS) -T $< -o $@ $(objects)
 
 #make install
-install: out/noobkernel.bin
-	sudo cp $< /boot/noobkernel.bin
+install: out/noob_kernel.bin
+	sudo cp $< /boot/noob_kernel.bin
 
-# make noobkernel.iso
-noobkernel.iso: out/noobkernel.bin
+# make CD/DVD Image
+NoobOS: out/noob_kernel.bin
 	mkdir iso
 	mkdir iso/boot
 	mkdir iso/boot/grub
-	cp out/noobkernel.bin iso/boot/noobkernel.bin
+	cp out/noob_kernel.bin iso/boot/noob_kernel.bin
 	echo 'set timeout=0'                      > iso/boot/grub/grub.cfg
 	echo 'set default=0'                     >> iso/boot/grub/grub.cfg
 	echo ''                                  >> iso/boot/grub/grub.cfg
 	echo 'menuentry "Noob OS" {'             >> iso/boot/grub/grub.cfg
-	echo '  multiboot /boot/noobkernel.bin'  >> iso/boot/grub/grub.cfg
+	echo '  multiboot /boot/noob_kernel.bin'  >> iso/boot/grub/grub.cfg
 	echo '  boot'                            >> iso/boot/grub/grub.cfg
 	echo '}'                                 >> iso/boot/grub/grub.cfg
-	grub-mkrescue --output=noobkernel.iso iso
+	grub-mkrescue --output=NoobOS.iso iso
 	rm -rf iso
 #make run
-run: noobkernel.iso
+run: NoobOS.iso
 	(killall VirtualBox && sleep 1) || true #Life Hack
 	virtualbox --startvm "Noob OS" &
 

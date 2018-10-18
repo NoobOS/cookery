@@ -4,7 +4,7 @@ To build Noob OS we need different sources from different repo, so read below in
 
 **Clone this (cookery) repo and follow the following instructions carefully.**
 
-This will be the _work_ and _root_ directory for the OS
+This will be the _work_ or _root_ directory for the OS
 
 ## Build
 
@@ -12,28 +12,28 @@ This will be the _work_ and _root_ directory for the OS
 
 - cd into root directory (cookery) and execute `make` from terminal to build noobkernel.bin which can be directly used or further can be used to create CD/DVD image.
 
-- To create CD/DVD iso : `make noobkernel.iso`
+- To create CD/DVD iso : `make NoobOS.iso`
 
 
 ## Installation
 
 ### Physical Device
 
-- After successful make there will be `noobkernel.bin` in `out` directory.
+- After successful make there will be `noob_kernel.bin` in `out` directory.
 
-- Again enter command `make install`. This will copy the noobkernel.bin to `/boot`
+- Again enter command `make install`. This will copy the noob_kernel.bin to `/boot`
 
 - check if makefile really pushed compiled kernel to `/boot` directory by `ls -l /boot`
 
 - open grub configuration file by `sudo vim /boot/grub/grub.cfg` to enter noob kernel to bootloader menu.
 
-- Edit `grub.cfg` and add  noobkernel to menu entry :
+- Edit `grub.cfg` and add  below lines to add noobkernel to menu entry :
 
 ```
 ### BEGIN NOOBKERNEL ###
 
 menuentry 'Noob OS'{
-	multiboot /boot/noobkernel.bin
+	multiboot /boot/noob_kernel.bin
 	boot
 }
 
@@ -44,7 +44,7 @@ menuentry 'Noob OS'{
 
 - Required softwares (Installed by `setup` script): `apt install virtualbox virtualbox-qt xorriso grub-coreboot`
 
-- cd into root directory (cookery) and execute `make noobkernel.iso`
+- cd into root directory (cookery) and execute `make noob_kernel.iso`
 
 - After successful build of CD/DVD iso we can run it in virtualbox. A Screenshot is provided below for demo.
 
