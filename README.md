@@ -8,12 +8,15 @@ This will be the _work_ or _root_ directory for the OS
 
 ## Build
 
-- Setup environment by double clicking / executing `setup.sh`
+- Setup environment by double clicking / executing `make setup`
 
-- cd into root directory (cookery) and execute `make` from terminal to build noobkernel.bin which can be directly used or further can be used to create CD/DVD image.
+- cd into root directory (cookery) and execute `make` from terminal to build the kernel (noob_kernel.bin) which can be directly used or further can be used to create CD/DVD image.
 
 - To create CD/DVD iso : `make NoobOS.iso`
 
+## Clean
+
+- Execute `make clean` to remove compiled directories(obj/,out/) & files(NoobOS.iso).
 
 ## Installation
 
